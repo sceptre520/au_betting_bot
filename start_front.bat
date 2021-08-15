@@ -1,0 +1,1 @@
+cd front && npm start

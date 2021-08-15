@@ -1,0 +1,1 @@
+cd back && npm start

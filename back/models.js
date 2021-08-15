@@ -45,6 +45,8 @@ exports.sports = mongoose.model('sports', SportSchema)
 
 const SettingSchema = new mongoose.Schema(
 	{
+        mail: { type: String, required: true },
+        password: { type: String, required: true },
 		apikey: { type: String, required: true },
 		sportKey: [
             { type: String, required: true }

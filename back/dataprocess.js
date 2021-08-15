@@ -24,6 +24,8 @@ saveLastPrice = function(old_json, new_json) {
                         if (validityPrice(new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].price, outcomes[z].price))
                             ret.msg.push({
                                 bookmaker: bookmaker,
+                                match: new_json.home_team + " vs " + new_json.away_team,
+                                sports: new_json.sport_key,
                                 market: markets[y].key,
                                 outcome: outcomes[z].name,
                                 from: outcomes[z].price,
@@ -44,22 +46,38 @@ validityPrice = function (a, b) {
     return false
 }
 
-sendGmail = function(data) {
+sendGmail = function(mail, pass, data) {
     var transporter = nodemailer.createTransport({
         service: "gmail",
         host: 'smtp.gmail.com',
         port: 465,
         auth: {
-            user: 'denysshowdev@gmail.com',
-            pass: '804273821!w'
+            user: mail,
+            pass: pass
         },
     });
 
+    var msg = ""
+    for (x in data) {
+        var bookmaker = data[x].bookmaker
+        bookmaker = bookmaker.charAt(0).toUpperCase() + bookmaker.slice(1)
+        var match = data[x].matchs
+        var sports = data[x].sports
+        sports = sports.charAt(0).toUpperCase() + sports.slice(1)
+        sports = sports.replace(/_/g, ' ')
+        var market = data[x].market
+        var outcome = data[x].outcome
+        var from = data[x].from
+        var to = data[x].to
+        var tmp = `${bookmaker} ${sports} ${match}\n${market} ${outcome}'s price was change from ${from} to ${to}.\n`
+        msg += tmp
+    }
+
     var mailOptions = {
-        from: 'denysshowdev@gmail.com',
-        to: 'denysshowdev@gmail.com',
-        subject: 'title',
-        text: 'msg'
+        from: mail,
+        to: mail,
+        subject: 'Betting Bot Notification',
+        text: msg
     };
 
     transporter.sendMail(mailOptions, function(error, info){

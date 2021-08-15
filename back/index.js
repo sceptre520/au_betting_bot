@@ -6,8 +6,6 @@ var mongoDB = mongoose.connection;
 const models = require('./models');
 const dprc = require('./dataprocess')
 
-dprc.sendGmail(null)
-
 mongoDB.once('open', function() {
     console.log('--  MogoDB Connected  --')
 
@@ -52,7 +50,7 @@ mongoDB.once('open', function() {
                         "outcomes":[
                             {"name":"Pakistan","price":2.7},
                             {"name":"West Indies","price":2.26},
-                            {"name":"Draw","price":5.2}
+                            {"name":"Draw","price":2.2}
                         ]
                     },
                     {
@@ -72,7 +70,13 @@ mongoDB.once('open', function() {
         if(err == null) {
             ret = dprc.saveLastPrice(data, tmp)
             tmp = ret.data
-            console.log(ret.msg)
+            if (ret.msg.length > 0) {
+                models.setting.find(function(err, data) {
+                    if(err == null && data.length>0) {
+                        dprc.sendGmail(data[0].mail, data[0].password, ret.msg)
+                    }
+                })
+            }
             models.events.updateMany({id:tmp.id}, tmp, {upsert: true}, function (err) {
                 console.log(err)
             })

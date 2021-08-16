@@ -6,6 +6,8 @@ const { getSports, updateSports } = require('./controller/sports')
 const { getEvents, forceEvents } = require('./controller/event')
 const apilog = require('./controller/apilog')
 
+const { mailtest } = require('./controller/test')
+
 router.get('/setting', readSetting)
 router.post('/setting', saveSetting)
 
@@ -16,5 +18,7 @@ router.post('/events', getEvents)
 router.post('/forceevents', forceEvents)
 
 router.get('/apilog', apilog)
+
+router.get('/test/mail', mailtest)
 
 module.exports = router;

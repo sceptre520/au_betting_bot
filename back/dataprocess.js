@@ -52,12 +52,14 @@ sendGmail = function(mail, pass, data) {
     var transporter = nodemailer.createTransport({
         service: "gmail",
         host: 'smtp.gmail.com',
-        port: 465,
+        port: 587,
         auth: {
             user: mail,
             pass: pass
         },
     });
+
+    transporter.verify().then(console.log).catch(console.error);
 
     console.log(`mail auth ${mail}, ${pass}`)
 

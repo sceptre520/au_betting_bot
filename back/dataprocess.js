@@ -59,6 +59,8 @@ sendGmail = function(mail, pass, data) {
         },
     });
 
+    console.log(`mail auth ${mail}, ${pass}`)
+
     var msg = ""
     for (x in data) {
         var bookmaker = data[x].bookmaker

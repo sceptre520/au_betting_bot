@@ -2,6 +2,7 @@ const dprc = require('./../dataprocess')
 const models = require('./../models');
 
 exports.mailtest = (req, res) => {
+    console.log('--- mail test started ---')
     models.setting.find(function(err, data) {
         if(err == null && data.length>0) {
             var tmp_setting = data[0]

@@ -1,0 +1,19 @@
+<div>
+    <div class="bookmaker_title">{{ parentData.title }}</div>
+    <div *ngFor="let row of parentData.markets" class="market_data">
+        <div *ngIf="row.key!='h2h_lay'">
+            <div class="market_title" >{{ row.market_title }}</div>
+            <div *ngFor="let outcome of row.outcomes" class="market_meta">
+                <div class="team_name"> {{ outcome.name }} </div>
+                <div class="prices">
+                    <div class="price_1">{{ outcome.price }}</div>
+                    <div class="price_2">{{ outcome.last_price }}</div>
+                </div>
+                <div class="symbol">
+                    <mat-icon *ngIf="outcome.price>outcome.last_price">arrow_upward</mat-icon>
+                    <mat-icon *ngIf="outcome.price<outcome.last_price">arrow_downward</mat-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

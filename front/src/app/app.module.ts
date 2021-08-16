@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SettingComponent } from './setting/setting.component';
 import { HomeComponent } from './home/home.component';
+import { BookmakerComponent } from './home/bookmaker/bookmaker.component';
 
 import { IgxDateRangePickerModule, IgxInputGroupModule } from "igniteui-angular";
 import { SceptreMaterialModule } from './material.module';
@@ -20,7 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     SettingComponent,
-    HomeComponent
+    HomeComponent,
+    BookmakerComponent
   ],
   imports: [
     BrowserModule,

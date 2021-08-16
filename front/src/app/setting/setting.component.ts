@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FormControl, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { catchError, map } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
-import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-setting',
@@ -31,8 +29,6 @@ export class SettingComponent implements OnInit {
   public password = new FormControl();
   public hide: boolean = true;
   public api_key = new FormControl();
-
-  httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) {
     this.http.get('/api/setting').subscribe((data: any)=>{

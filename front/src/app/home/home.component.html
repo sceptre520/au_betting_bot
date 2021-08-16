@@ -1,8 +1,18 @@
-<div class="body_content" [style.width.px]="screenWidth">
+<div class="body_content" [style.width.px]="screenWidth" [style.height.px]="screenHeight">
     <div class="calendar_container">
         <igx-date-range-picker [(ngModel)]="range">
             <label igxLabel>Match dates</label>
         </igx-date-range-picker>
     </div>
-    <table></table>
+    <div class="event_content">
+        <div *ngFor="let row of events" class="one_event">
+            <!--  -->
+            <div class="event_title">
+                <span class="sport_name">{{ row.sport_key }}</span>
+                <span class="match_name">{{ row.home_team }} vs {{ row.away_team }}</span>
+                <span class="start_time">{{ row.commence_time }}</span>
+            </div>
+            <app-bookmaker class="bookmaker_container" *ngFor="let bookmaker of row.bookmakers" [parentData]="bookmaker"></app-bookmaker>
+        </div>
+    </div>
 </div>

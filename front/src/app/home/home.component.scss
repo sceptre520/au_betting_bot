@@ -9,9 +9,47 @@
     padding: 10px;
     border-radius: 20px;
     background-color: #cce4ebc5;
+    overflow: hidden;
 }
 
 .calendar_container {
     max-width: 300px;
     margin: 5px auto;
+}
+
+.event_content {
+    height: calc(100% - 80px);
+    overflow-y: auto;
+}
+.one_event {
+    border-radius: 10px;
+    // background-color: rgba(154, 196, 180, 0.74);
+    border: 2px solid rgba(51, 79, 236, 0.808);
+    padding: 10px;
+    margin: 5px 10px;
+}
+.event_title {
+    background-color: rgba(51, 79, 236, 0.808);
+    width: calc(100% + 20px);
+    height: 42px;
+    font-size: 24px;
+    color: rgb(245, 222, 222);
+    margin: -10px -10px 0 -10px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.event_title > span {
+    display: inline-block;
+    margin: 5px 10px;
+}
+.event_title > .match_name {
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    margin: 5px 10px 5px 50px;
+    font-size: 32px;
+}
+.event_title > .start_time {
+    font-size: 18px;
+    float: right;
+    margin: 12px 25px 5px 10px;
 }

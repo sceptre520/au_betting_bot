@@ -1,0 +1,55 @@
+.bookmaker_title {
+    display: inline-block;
+    width: 250px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    vertical-align: top;
+    padding-top: 15px;
+}
+.market_data {
+    display: inline-block;
+    width: calc(33% - 90px);
+}
+.market_title {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 22px;
+}
+.market_meta {
+    clear: both;
+}
+.market_data > div > .market_meta {
+    border-top: 1px solid #eee;
+}
+.market_title + .market_meta {
+    border: none;
+}
+.market_meta > div {
+    float: left;
+}
+.team_name {
+    width: calc(100% - 100px);
+    text-align: center;
+    font-size: 18px;
+    padding-top: 10px;
+}
+.prices {
+    width: 80px;
+}
+.price_1 {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+.price_2 {
+    font-size: 11px;
+    text-align: center;
+}
+.symbol {
+    width: 20px;
+}
+.symbol > * {
+    padding-top: 10px;
+}

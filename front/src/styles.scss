@@ -13,3 +13,6 @@
 @include igx-core();
 @include igx-typography($font-family: $material-typeface, $type-scale: $material-type-scale);
 @include igx-theme($default-palette);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

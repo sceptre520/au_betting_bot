@@ -11,6 +11,6 @@ export class AppComponent implements OnInit {
   public screenHeight: any;
   ngOnInit() {
     this.screenWidth = window.innerWidth;
-    this.screenHeight = window.innerHeight - 52;
+    this.screenHeight = window.innerHeight;
   }
 }

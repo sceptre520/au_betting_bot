@@ -8,9 +8,12 @@ import { DateRange } from 'igniteui-angular';
 })
 export class HomeComponent implements OnInit {
   public range: DateRange = { start: new Date(), end: new Date(new Date().setDate(new Date().getDate() + 5)) };
+  public screenWidth: any;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.screenWidth = window.innerWidth - 80;
   }
 
 }

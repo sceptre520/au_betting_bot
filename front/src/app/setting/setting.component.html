@@ -1,9 +1,63 @@
-<link href="./setting.component.scss" rel="stylesheet">
+<div class="body_content row" [style.width.px]="screenWidth">
+    <div style="clear: both; display: block; padding: 5px;">
+        <div class="mail_container">
+            <mat-form-field appearance="fill">
+                <mat-label>Mail</mat-label>
+                <input matInput placeholder="pat@example.com" [formControl]="email" required>
+                <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
 
-<div>
-    <div class="toolbar">
-        <button class="btn"><i></i></button>
-        <button class="btn"><i></i></button>
+            <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+        <div class="sport_container">
+            <mat-form-field appearance="fill">
+                <mat-label>API Key</mat-label>
+                <input matInput [formControl]="api_key">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Sports</mat-label>
+                <mat-select [formControl]="sports" multiple>
+                    <mat-option *ngFor="let row of sportLists" [value]="row">{{row}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="half_input" appearance="fill">
+                <mat-label>Regions</mat-label>
+                <mat-select [formControl]="regions" multiple>
+                    <mat-option *ngFor="let row of regionLists" [value]="row">{{row}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="half_input" appearance="fill">
+                <mat-label>Markets</mat-label>
+                <mat-select [formControl]="markets" multiple>
+                    <mat-option *ngFor="let row of marketLists" [value]="row">{{row}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="half_input" appearance="fill">
+                <mat-label>Odd format</mat-label>
+                <mat-select [formControl]="odd">
+                    <mat-option *ngFor="let row of odds" [value]="row">{{row}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="half_input" appearance="fill">
+                <mat-label>Date format</mat-label>
+                <mat-select [formControl]="dateformat">
+                    <mat-option *ngFor="let row of dateformats" [value]="row">{{row}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" class="save_btn" (click)="onSave()">Save</button>
+            <button mat-raised-button color="primary" class="save_btn" (click)="onRefresh()">Refresh Sports</button>
+        </div>
     </div>
-    <div class="content"></div>
 </div>

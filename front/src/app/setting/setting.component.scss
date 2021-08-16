@@ -1,0 +1,49 @@
+:host {
+    display: block;
+    padding: 1rem;
+}
+.body_content {
+    margin: 0 10px;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #cce4ebc5;
+}
+
+
+
+.mail_container, .sport_container {
+    display: inline-block;
+    vertical-align:top;
+}
+.mail_container {
+    width: 300px;
+}
+.sport_container {
+    margin-left: 50px;
+    width: calc(100% - 400px);
+}
+@media(max-width: 800px) {
+    .mail_container, .sport_container {
+        display: block;
+        float: none;
+        width: 100%;
+        margin: 5px 0;
+    }    
+}
+
+.mail_container .mat-form-field, .sport_container .mat-form-field {
+    margin: 8px;
+    display: block;
+    width: calc(100% - 20px);
+}
+
+.half_input {
+    float: left!important;
+    width: calc(50% - 20px)!important;
+}
+
+.save_btn {
+    display: block;
+    float: right;
+    margin: 0 5px;
+}

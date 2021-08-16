@@ -1,5 +1,17 @@
 :host {
     display: block;
     padding: 1rem;
-    max-width: 600px;
+    // max-width: 600px;
+}
+
+.body_content {
+    margin: 0 10px;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #cce4ebc5;
+}
+
+.calendar_container {
+    max-width: 300px;
+    margin: 5px auto;
 }

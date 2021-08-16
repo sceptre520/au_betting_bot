@@ -1,4 +1,4 @@
-<div style="clear: both;" *ngIf="parentData.key=='tab'||parentData.key=='ladbrokes'||parentData.key=='sportsbet'||parentData.key=='pointsbet'||parentData.key=='unibet'">
+<div style="clear: both;" *ngIf="parentData.key=='tab'||parentData.key=='ladbrokes'||parentData.key=='sportsbet'||parentData.key=='pointsbetau'||parentData.key=='unibet'">
     <div class="bookmaker_title">{{ parentData.title }}</div>
     <div *ngFor="let row of parentData.markets" class="market_data">
         <div *ngIf="row.key!='h2h_lay'">

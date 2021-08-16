@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"oddcapture.setting"}],"uuid":"cd184f08eb5d4003940474267b23a0e4","collectionName":"setting","type":"collection"}

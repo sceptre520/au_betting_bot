@@ -10,14 +10,55 @@ import { throwError } from 'rxjs';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public range: DateRange = { start: new Date(), end: new Date(new Date().setDate(new Date().getDate() + 5)) };
+  public range: DateRange = { start: new Date(), end: new Date(new Date().setDate(new Date().getDate() + 3)) };
   public screenWidth: any;
   public screenHeight: any;
   
   public events: any;
+  public start_time: string = '';
+  public end_time: string = '';
 
   constructor(private http: HttpClient) {
-    this.http.get('/api/events').subscribe((data: any)=>{
+    this.start_time = this.convertDateToStr(new Date())
+    this.start_time += 'T00:00:00Z'
+    this.end_time = this.convertDateToStr(new Date(new Date().setDate(new Date().getDate() + 3)))
+    this.end_time += 'T23:59:59Z'
+    this._getEvents()
+    this.http.get('/api/apilog').subscribe((data: any)=>{
+      console.log(data)
+    })
+    
+  }
+
+  ngOnInit(): void {
+    this.screenWidth = window.innerWidth - 80;
+    this.screenHeight = window.innerHeight - 85;
+  }
+
+  onForce() {
+    this.http.post('/api/forceevents', {'start':this.start_time, 'end':this.end_time}).subscribe((data: any)=>{})
+  }
+
+  modelRangeChange(event:any) {
+    this.start_time = this.convertDateToStr(event.start)
+    this.end_time = this.convertDateToStr(event.end)
+    this.start_time += 'T00:00:00Z'
+    this.end_time += 'T23:59:59Z'
+    this._getEvents()
+  }
+
+  convertDateToStr(dateObj:Date) {
+    var mm = dateObj.getMonth() + 1; // getMonth() is zero-based
+    var dd = dateObj.getDate();
+
+    return [dateObj.getFullYear(),
+            (mm>9 ? '' : '0') + mm,
+            (dd>9 ? '' : '0') + dd
+          ].join('-');
+  }
+
+  _getEvents() {
+    this.http.post('/api/events', {'start':this.start_time, 'end':this.end_time}).subscribe((data: any)=>{
       console.log(data)
       var tmp_len = data.length
       var tmp_i = 0
@@ -37,15 +78,6 @@ export class HomeComponent implements OnInit {
       }
       this.events = data
     })
-  }
-
-  ngOnInit(): void {
-    this.screenWidth = window.innerWidth - 80;
-    this.screenHeight = window.innerHeight - 85;
-  }
-
-  onForce() {
-    this.http.post('/api/events', {}).subscribe((data: any)=>{})
   }
 
   handleError(error: HttpErrorResponse) {

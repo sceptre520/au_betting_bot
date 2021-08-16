@@ -2,7 +2,8 @@ const models = require('./../models');
 const oddapi = require('./../scraper/oddapi')
 
 exports.getEvents = (req, res) => {
-    models.events.find(function(err, data) {
+    console.log(req.body)
+    models.events.find({commence_time : {$gte:req.body.start, $lte:req.body.end}}, null, {sort: {commence_time: 1}}, function(err, data) {
         if(err == null && data.length>0) {
             res.json(data)
         }
@@ -14,7 +15,7 @@ exports.getEvents = (req, res) => {
 
 exports.forceEvents = (req, res) => {
     oddapi()
-    models.events.find(function(err, data) {
+    models.events.find({commence_time : {$gte:req.body.start, $lte:req.body.end}}, null, {sort: {commence_time: 1}}, function(err, data) {
         if(err == null && data.length>0) {
             res.json(data)
         }

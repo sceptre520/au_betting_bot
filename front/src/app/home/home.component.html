@@ -1,13 +1,13 @@
 <div class="body_content" [style.width.px]="screenWidth" [style.height.px]="screenHeight">
     <div style="clear: both;">
         <div class="calendar_container">
-            <igx-date-range-picker [(ngModel)]="range">
+            <igx-date-range-picker [(ngModel)]="range" (ngModelChange)="modelRangeChange($event)">
                 <label igxLabel>Match dates</label>
             </igx-date-range-picker>
         </div>
-        <div class="control_tool">
+        <!-- <div class="control_tool">
             <button mat-raised-button color="accent" class="save_btn" (click)="onForce()">Froce load</button>
-        </div>
+        </div> -->
     </div>
     <div class="event_content">
         <div *ngFor="let row of events" class="one_event">

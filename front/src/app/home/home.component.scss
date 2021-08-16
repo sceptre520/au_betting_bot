@@ -14,10 +14,16 @@
 
 .calendar_container {
     max-width: 300px;
-    margin: 5px auto;
+    margin: 5px 0 5px calc(50% - 150px);
+    float: left;
+}
+.control_tool {
+    float: right;
+    padding: 10px 10px 0 0;
 }
 
 .event_content {
+    clear: both;
     height: calc(100% - 80px);
     overflow-y: auto;
 }

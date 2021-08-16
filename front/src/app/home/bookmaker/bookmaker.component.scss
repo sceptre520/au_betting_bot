@@ -9,7 +9,7 @@
 }
 .market_data {
     display: inline-block;
-    width: calc(33% - 90px);
+    width: calc(33% - 100px);
 }
 .market_title {
     width: 100%;
@@ -20,11 +20,11 @@
 .market_meta {
     clear: both;
 }
+.market_title + .market_meta {
+    border: none!important;
+}
 .market_data > div > .market_meta {
     border-top: 1px solid #eee;
-}
-.market_title + .market_meta {
-    border: none;
 }
 .market_meta > div {
     float: left;

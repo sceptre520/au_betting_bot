@@ -44,6 +44,10 @@ export class HomeComponent implements OnInit {
     this.screenHeight = window.innerHeight - 85;
   }
 
+  onForce() {
+    this.http.post('/api/events', {}).subscribe((data: any)=>{})
+  }
+
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

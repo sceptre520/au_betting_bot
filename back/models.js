@@ -63,3 +63,13 @@ const SettingSchema = new mongoose.Schema(
 	{ collection: 'setting' }
 )
 exports.setting = mongoose.model('setting', SettingSchema)
+
+const ApiLogSchema = new mongoose.Schema(
+	{
+        last_req_time: { type: String, required: true },
+        rem_req: { type: String, required: true },
+        used_req: { type: String, required: true }
+	},
+	{ collection: 'apilog' }
+)
+exports.apilog = mongoose.model('apilog', ApiLogSchema)

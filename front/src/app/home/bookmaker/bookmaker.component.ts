@@ -21,10 +21,10 @@ export class BookmakerComponent implements OnInit {
         case 'h2h_lay':
           this.parentData.markets[x].market_title = 'Win(lay)'
           break
-        case 'spread':
+        case 'spreads':
           this.parentData.markets[x].market_title = 'Line'
           break
-        case 'h2h':
+        case 'totals':
           this.parentData.markets[x].market_title = 'Total Points'
           break
       }

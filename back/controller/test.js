@@ -25,18 +25,18 @@ exports.mailtest = (req, res) => {
                 from: '1.8',
                 to: '1.5'
             })
-            const send = require('gmail-send')({
-                user: tmp_setting.mail,
-                pass: tmp_setting.password,
-                to:   tmp_setting.mail,
-                subject: 'test subject',
-                text: msg
-            });
-            send({}, function (err, res, full) {
-                if (err) return console.log('* [example 1.1] send() callback returned: err:', err);
-                console.log('* [example 1.1] send() callback returned: res:', res);
-            })
-            // dprc.sendGmail(tmp_setting.mail, tmp_setting.password, msg)
+            // const send = require('gmail-send')({
+            //     user: tmp_setting.mail,
+            //     pass: tmp_setting.password,
+            //     to:   tmp_setting.mail,
+            //     subject: 'test subject',
+            //     text: msg
+            // });
+            // send({}, function (err, res, full) {
+            //     if (err) return console.log('* [example 1.1] send() callback returned: err:', err);
+            //     console.log('* [example 1.1] send() callback returned: res:', res);
+            // })
+            dprc.sendGmail(tmp_setting.mail, tmp_setting.password, msg)
             res.send('sended')
         }
         else {

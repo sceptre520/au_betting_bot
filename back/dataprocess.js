@@ -49,17 +49,17 @@ validityPrice = function (a, b) {
 }
 
 sendGmail = function(mail, pass, data) {
-    var transporter = nodemailer.createTransport({
-        service: "gmail",
-        host: 'smtp.gmail.com',
-        port: 465,
-        auth: {
-            user: mail,
-            pass: pass
-        },
-    });
+    // var transporter = nodemailer.createTransport({
+    //     service: "gmail",
+    //     host: 'smtp.gmail.com',
+    //     port: 465,
+    //     auth: {
+    //         user: mail,
+    //         pass: pass
+    //     },
+    // });
 
-    transporter.verify().then(console.log).catch(console.error);
+    // transporter.verify().then(console.log).catch(console.error);
 
     console.log(`mail auth ${mail}, ${pass}`)
 
@@ -79,20 +79,22 @@ sendGmail = function(mail, pass, data) {
         msg += tmp
     }
 
-    var mailOptions = {
-        from: mail,
-        to: mail,
-        subject: 'Betting Bot Notification',
-        text: msg
-    };
+    // var mailOptions = {
+    //     from: mail,
+    //     to: mail,
+    //     subject: 'Betting Bot Notification',
+    //     text: msg
+    // };
 
-    transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
-    });
+    // transporter.sendMail(mailOptions, function(error, info){
+    //     if (error) {
+    //         console.log(error);
+    //     } else {
+    //         console.log('Email sent: ' + info.response);
+    //     }
+    // });
+
+    console.log(msg)
 }
 
 exports.saveLastPrice = saveLastPrice

@@ -77,6 +77,7 @@ const getData = async (pmObj) => {
         // console.log(JSON.stringify(markets))
         // console.log('------------   tbody   ---------------')
     }
+    console.log(bookmaker_title+' '+len+' event(s) updated')
 }
 
 function convertTimeFormat(pm_str) {

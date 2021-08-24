@@ -51,6 +51,8 @@ validityPrice = function (a, b) {
 sendGmail = function(mail, pass, data) {
     var transporter = nodemailer.createTransport({
         service: "gmail",
+        host: 'smtp.gmail.com',
+        port: 465,
         auth: {
             user: mail,
             pass: pass

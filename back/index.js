@@ -11,6 +11,8 @@ const app = express();
 const bodyParser = require("body-parser");
 const router = require("./router")
 
+const jimmy = require('./scraper/jimmy')
+
 mongoDB.once('open', function() {
     console.log('--  MogoDB Connected  --')
 
@@ -92,10 +94,13 @@ mongoDB.once('open', function() {
 console.log('--  Server Started  --')
 
 
-// cron.schedule('0 */30 * * * *', function() {
-//   console.log(' ---  running a task every 30 minutes --- ');
+cron.schedule('0 */30 * * * *', function() {
+  // console.log(' ---  running a task every 30 minutes --- ');
+})
+
 cron.schedule('*/5 * * * * *', function() {
-    console.log('--  running a task every 5 seconds --');
+  console.log('--  running a task every 5 seconds --');
+  jimmy.run()
 })
 
 

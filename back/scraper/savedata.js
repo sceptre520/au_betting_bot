@@ -55,7 +55,7 @@ exports.savedata = (sport_key, sport_title, bk_key, bk_title, teamnames, start_t
                                         continue
                                     }
 
-                                    var oc_len = outcomes
+                                    var oc_len = outcomes.length
                                     for (var tmp_k=0; tmp_k<oc_len; tmp_k++) {
                                         for (x in data.bookmakers[tmp_i].markets[index_market].outcomes) {
                                             console.log(data.bookmakers[tmp_i].markets[index_market].outcomes[x].name+' : '+outcomes[tmp_k].name)

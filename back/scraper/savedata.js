@@ -12,6 +12,7 @@ exports.savedata = (sport_key, sport_title, bk_key, bk_title, teamnames, start_t
         if(err == null) {
             if(data == null) {
                 var evt_key = crypto.createHash('sha256').update(sport_key+teamnames[0]+teamnames[1]+start_time).digest('hex');
+                var today = new Date();
                 var tmp = new models.events({
                     id:evt_key,
                     sport_key:sport_key,
@@ -22,7 +23,7 @@ exports.savedata = (sport_key, sport_title, bk_key, bk_title, teamnames, start_t
                     bookmakers:[{
                         key:bk_key,
                         title:bk_title,
-                        last_update:'',
+                        last_update:today.toISOString().split('.')[0]+"Z",
                         markets:market_json
                     }]
                 })

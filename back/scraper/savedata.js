@@ -35,10 +35,12 @@ exports.savedata = (sport_key, sport_title, bk_key, bk_title, teamnames, start_t
                         tmp.save()
                     }
                     else {
+                        console.log('---------------------------------------')
                         var tmp_len = data.bookmakers.length
                         var flag = false
                         for (var tmp_i=0; tmp_i<tmp_len; tmp_i++) {
                             var ret_msg = []
+                            console.log('bookmakers '+data.bookmakers[tmp_i].key)
                             if (data.bookmakers[tmp_i].key == bk_key) {
                                 var mk_len = market_json.length
                                 for (var tmp_j=0; tmp_j<mk_len; tmp_j++) {

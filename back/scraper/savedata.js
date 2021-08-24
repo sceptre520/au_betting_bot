@@ -45,10 +45,8 @@ exports.savedata = (sport_key, sport_title, bk_key, bk_title, teamnames, start_t
                                 for (var tmp_j=0; tmp_j<mk_len; tmp_j++) {
                                     outcomes = market_json[tmp_j].outcomes
                                     mk_key = market_json[tmp_j].key
-                                    console.log('mk_key '+mk_key)
                                     var index_market = -1
                                     for(j in data.bookmakers[tmp_i].markets) {
-                                        console.log('db_nk_key '+data.bookmakers[tmp_i].markets[j].key)
                                         if (data.bookmakers[tmp_i].markets[j].key == mk_key)
                                             index_market = j
                                     }
@@ -60,6 +58,7 @@ exports.savedata = (sport_key, sport_title, bk_key, bk_title, teamnames, start_t
                                     var oc_len = outcomes
                                     for (var tmp_k=0; tmp_k<oc_len; tmp_k++) {
                                         for (x in data.bookmakers[tmp_i].markets[index_market].outcomes) {
+                                            console.log(data.bookmakers[tmp_i].markets[index_market].outcomes[x].name+' : '+outcomes[tmp_k].name)
                                             if (data.bookmakers[tmp_i].markets[index_market].outcomes[x].name == outcomes[tmp_k].name) {
                                                 data.bookmakers[tmp_i].markets[index_market].outcomes[x].last_price = data.bookmakers[tmp_i].markets[index_market].outcomes[x].price
                                                 data.bookmakers[tmp_i].markets[index_market].outcomes[x].price = outcomes[tmp_k].price

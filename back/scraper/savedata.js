@@ -35,7 +35,6 @@ exports.savedata = (sport_key, sport_title, bk_key, bk_title, teamnames, start_t
                         tmp.save()
                     }
                     else {
-                        console.log('---------------------------------------')
                         var tmp_len = data.bookmakers.length
                         var flag = false
                         for (var tmp_i=0; tmp_i<tmp_len; tmp_i++) {
@@ -58,11 +57,9 @@ exports.savedata = (sport_key, sport_title, bk_key, bk_title, teamnames, start_t
                                     var oc_len = outcomes.length
                                     for (var tmp_k=0; tmp_k<oc_len; tmp_k++) {
                                         for (x in data.bookmakers[tmp_i].markets[index_market].outcomes) {
-                                            console.log(data.bookmakers[tmp_i].markets[index_market].outcomes[x].name+' : '+outcomes[tmp_k].name)
                                             if (data.bookmakers[tmp_i].markets[index_market].outcomes[x].name == outcomes[tmp_k].name) {
                                                 data.bookmakers[tmp_i].markets[index_market].outcomes[x].last_price = data.bookmakers[tmp_i].markets[index_market].outcomes[x].price
                                                 data.bookmakers[tmp_i].markets[index_market].outcomes[x].price = outcomes[tmp_k].price
-                                                console.log('set_last_price')
                                                 if (validityPrice(data.bookmakers[tmp_i].markets[index_market].outcomes[x].last_price, outcomes[tmp_k].price)) {
                                                     ret_msg.push({
                                                         bookmaker: bk_key,
@@ -92,8 +89,7 @@ exports.savedata = (sport_key, sport_title, bk_key, bk_title, teamnames, start_t
                             })
                         }
                         models.events.updateMany({id:data.id}, data, {upsert: true}, function (err) {
-                            if (err != null)
-                                console.log(err)
+                            if (err != null) console.log(err)
                         })
                         // console.log(data.bookmakers)
                     }

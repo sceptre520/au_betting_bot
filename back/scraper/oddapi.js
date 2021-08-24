@@ -66,7 +66,7 @@ function updateOneData(ind, len, org_data, tmp_setting, callback) {
                     dprc.sendGmail(tmp_setting.mail, tmp_setting.password, ret.msg)
                 }
                 models.events.updateMany({id:tmp_evt.id}, tmp_evt, {upsert: true}, function (err) {
-                    console.log(err)
+                    if (err != null) console.log(err)
                 })
                 updateOneData(ind+1, len, org_data, tmp_setting, callback)
             }

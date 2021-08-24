@@ -1,6 +1,8 @@
 const cheerio = require('cheerio');
 const got = require('got');
 
+const updater = require('./savedata')
+
 const bookmaker_key = 'tabtouch'
 const bookmaker_title = 'Tabtouch'
 

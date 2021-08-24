@@ -6,13 +6,21 @@ const updater = require('./savedata')
 const bookmaker_key = 'jimmybet'
 const bookmaker_title = 'Jimmybet'
 
-const vgmUrl= [
-                'https://www.jimmybet.com.au/Sport/Australian_Rules/AFL/Matches',
-                'https://www.jimmybet.com.au/Sport/Baseball/Major_League_Baseball/Matches'
+const vgmObjs= [
+                {
+                    sport_key:'aussierules_afl',
+                    sport_title:'AFL',
+                    url:'https://www.jimmybet.com.au/Sport/Australian_Rules/AFL/Matches'
+                },
+                {
+                    sport_key:'baseball_mlb',
+                    sport_title:'MLB',
+                    url:'https://www.jimmybet.com.au/Sport/Baseball/Major_League_Baseball/Matches'
+                }
             ]
 
-const getData = async (pmUrl) => {
-    const response = await got(pmUrl);
+const getData = async (pmObj) => {
+    const response = await got(pmObj.url);
     const $ = cheerio.load(response.body);
 
     var events = $('.framePanel')
@@ -63,11 +71,11 @@ const getData = async (pmUrl) => {
                 })
             }
         }
-        updater.savedata(bookmaker_key, bookmaker_title, team_names, convertTimeFormat(match_time), markets)
-        console.log(team_names)
-        console.log(convertTimeFormat(match_time))
-        console.log(JSON.stringify(markets))
-        console.log('------------   tbody   ---------------')
+        updater.savedata(pmObj.sport_key, pmObj.sport_title, bookmaker_key, bookmaker_title, team_names, convertTimeFormat(match_time), markets)
+        // console.log(team_names)
+        // console.log(convertTimeFormat(match_time))
+        // console.log(JSON.stringify(markets))
+        // console.log('------------   tbody   ---------------')
     }
 }
 
@@ -106,8 +114,8 @@ function convertMarketName(pm_name) {
 }
 
 exports.run = () => {
-    var tmp_len = vgmUrl.length
+    var tmp_len = vgmObjs.length
     for(var tmp_i=0; tmp_i<tmp_len; tmp_i++) {
-        getData(vgmUrl[tmp_i])
+        getData(vgmObjs[tmp_i])
     }
 }

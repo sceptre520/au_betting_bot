@@ -107,6 +107,7 @@ const vgmObjs= [
 
 const getData = async (ind, len, pmObjs, callback) => {
     if(ind < len) {
+        console.log(ind, len)
         var pmObj = pmObjs[ind]
         markets = {}
         var mk_len = pmObj.markets.length

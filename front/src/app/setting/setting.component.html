@@ -1,6 +1,6 @@
 <div class="body_content row" [style.width.px]="screenWidth">
     <div style="clear: both; display: block; padding: 5px;">
-        <div class="mail_container">
+        <div class="setting_container mail_container">
             <mat-form-field appearance="fill">
                 <mat-label>Mail</mat-label>
                 <input matInput placeholder="pat@example.com" [formControl]="email" required>
@@ -15,7 +15,25 @@
                 </button>
             </mat-form-field>
         </div>
-        <div class="sport_container">
+
+        <div class="setting_container config_container">
+            <mat-form-field appearance="fill">
+                <mat-label>API Period[s]</mat-label>
+                <input matInput [formControl]="prd1">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Scrap Period[s]</mat-label>
+                <input matInput [formControl]="prd2">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Trigger</mat-label>
+                <input matInput [formControl]="trigger">
+            </mat-form-field>
+        </div>
+
+        <div class="setting_container sport_container">
             <mat-form-field appearance="fill">
                 <mat-label>API Key</mat-label>
                 <input matInput [formControl]="api_key">

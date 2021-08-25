@@ -11,19 +11,22 @@
 
 
 
-.mail_container, .sport_container {
+.setting_container {
     display: inline-block;
     vertical-align:top;
 }
 .mail_container {
     width: 300px;
 }
+.config_container {
+    width: 160px;
+}
 .sport_container {
-    margin-left: 50px;
-    width: calc(100% - 400px);
+    margin-left: 20px;
+    width: calc(100% - 480px);
 }
 @media(max-width: 800px) {
-    .mail_container, .sport_container {
+    .setting_container {
         display: block;
         float: none;
         width: 100%;
@@ -31,7 +34,7 @@
     }    
 }
 
-.mail_container .mat-form-field, .sport_container .mat-form-field {
+.setting_container .mat-form-field {
     margin: 8px;
     display: block;
     width: calc(100% - 20px);

@@ -7,6 +7,8 @@ exports.savedata = (sport_key, sport_title, bk_key, bk_title, teamnames, start_t
     models.setting.find(function(err, data) {
         if(err == null && data.length>0) {
             var tmp_setting = data[0]
+            var trigger = 0.4
+            if(tmp_setting.trigger) trigger = tmp_setting.trigger
             models.events.findOne({$and:[
                 {$or:[
                 {$and:[{home_team:teamnames[0]}, {away_team:teamnames[1]}]},
@@ -60,7 +62,7 @@ exports.savedata = (sport_key, sport_title, bk_key, bk_title, teamnames, start_t
                                             if (data.bookmakers[tmp_i].markets[index_market].outcomes[x].name == outcomes[tmp_k].name) {
                                                 data.bookmakers[tmp_i].markets[index_market].outcomes[x].last_price = data.bookmakers[tmp_i].markets[index_market].outcomes[x].price
                                                 data.bookmakers[tmp_i].markets[index_market].outcomes[x].price = outcomes[tmp_k].price
-                                                if (validityPrice(data.bookmakers[tmp_i].markets[index_market].outcomes[x].last_price, outcomes[tmp_k].price)) {
+                                                if (validityPrice(data.bookmakers[tmp_i].markets[index_market].outcomes[x].last_price, outcomes[tmp_k].price, trigger)) {
                                                     ret_msg.push({
                                                         bookmaker: bk_key,
                                                         match: teamnames[0] + " vs " + teamnames[1],
@@ -99,7 +101,8 @@ exports.savedata = (sport_key, sport_title, bk_key, bk_title, teamnames, start_t
     })
 }
 
-validityPrice = function (a, b) {
-    if (Math.abs(a - b) > 0.4) return true
+validityPrice = function (a, b, trigger=0.4) {
+    // console.log(trigger)
+    if (Math.abs(a - b) > trigger) return true
     return false
 }

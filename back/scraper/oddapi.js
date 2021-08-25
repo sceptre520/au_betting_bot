@@ -60,7 +60,9 @@ function updateOneData(ind, len, org_data, tmp_setting, callback) {
         var tmp = org_data[ind]
         models.events.findOne({id:tmp.id}, {"bookmakers.key":1, "bookmakers.markets.key":1, "bookmakers.markets.outcomes":1}, function(err, data) {
             if(err == null) {
-                ret = dprc.saveLastPrice(data, tmp)
+                var trigger = 0.4
+                if(tmp_setting.trigger) trigger = tmp_setting.trigger
+                ret = dprc.saveLastPrice(data, tmp, trigger)
                 var tmp_evt = ret.data
                 if (ret.msg.length > 0 && tmp_setting.mail!='') {
                     dprc.sendGmail(tmp_setting.mail, tmp_setting.password, ret.msg)

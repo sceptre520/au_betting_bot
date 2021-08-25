@@ -15,23 +15,34 @@ const jimmy = require('./scraper/jimmy')
 const tabbouch = require('./scraper/tabtouch')
 const oddapi = require('./scraper/oddapi')
 
+
 mongoDB.once('open', function() {
   console.log('--  MogoDB Connected  --')
+  models.setting.find(function(err, data) {
+    if(err == null && data.length>0) {
+
+      var prd1 = 1800
+      if(data[0].prd1) prd1 = data[0].prd1
+      var cron1_str = "*/"+prd1+" * * * * *"
+      exports.task1 = cron.schedule(cron1_str, function() {
+          console.log(cron1_str)
+          oddapi()
+      })
+
+      var prd2 = 15
+      if(data[0].prd2) prd2 = data[0].prd2
+      var cron2_str = "*/"+prd2+" * * * * *"
+      exports.task2 = cron.schedule(cron2_str, function() {
+          console.log(cron2_str)
+          jimmy.run()
+          tabbouch.run()
+      })
+
+    }
+  })
 })
 
 console.log('--  Server Started  --')
-
-
-cron.schedule('0 */30 * * * *', function() {
-  console.log(' ---  running a task every 30 minutes --- ');
-  oddapi()
-})
-
-cron.schedule('*/15 * * * * *', function() {
-  console.log('--  running a task every 15 seconds --');
-  jimmy.run()
-  tabbouch.run()
-})
 
 
 app.use(bodyParser.json());

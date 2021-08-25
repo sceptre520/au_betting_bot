@@ -30,6 +30,10 @@ export class SettingComponent implements OnInit {
   public hide: boolean = true;
   public api_key = new FormControl();
 
+  public prd1 = new FormControl();
+  public prd2 = new FormControl();
+  public trigger = new FormControl();
+
   constructor(private http: HttpClient) {
     this.http.get('/api/setting').subscribe((data: any)=>{
       this.email.setValue(data.mail)
@@ -40,6 +44,9 @@ export class SettingComponent implements OnInit {
       this.markets.setValue(data.markets)
       this.odd.setValue(data.oddsFormat)
       this.dateformat.setValue(data.dateFormat)
+      this.prd1.setValue(data.prd1)
+      this.prd2.setValue(data.prd2)
+      this.trigger.setValue(data.trigger)
     })
     this.http.get('/api/sports').subscribe((data: any)=>{
       this.sportLists = data
@@ -62,6 +69,9 @@ export class SettingComponent implements OnInit {
         'markets' : this.markets.value,
         'oddsFormat' : this.odd.value,
         'dateFormat' : this.dateformat.value,
+        'prd1' : this.prd1.value,
+        'prd2' : this.prd2.value,
+        'trigger' : this.trigger.value
       }
     ).subscribe((data: any)=>{})
   }

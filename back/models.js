@@ -58,7 +58,10 @@ const SettingSchema = new mongoose.Schema(
             { type: String }
         ],
         oddsFormat: { type: String, required: true },
-        dateFormat: { type: String, required: true }
+        dateFormat: { type: String, required: true },
+        prd1: { type: String },
+        prd2: { type: String },
+        trigger: { type: String }
 	},
 	{ collection: 'setting' }
 )

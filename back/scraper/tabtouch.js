@@ -205,6 +205,8 @@ function convertTimeFormat(pm_str) {
 exports.run = () => {
     var tmp_len = vgmObjs.length
     for(var tmp_i=0; tmp_i<tmp_len; tmp_i++) {
-        getData(vgmObjs[tmp_i])
+        setTimeout( function (tmp_i) {
+            getData(vgmObjs[tmp_i])
+        }, 100*i, i)
     }
 }

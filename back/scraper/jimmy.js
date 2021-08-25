@@ -7,15 +7,20 @@ const bookmaker_key = 'jimmybet'
 const bookmaker_title = 'Jimmybet'
 
 const vgmObjs= [
+                // {
+                //     sport_key:'aussierules_afl',
+                //     sport_title:'AFL',
+                //     url:'https://www.jimmybet.com.au/Sport/Australian_Rules/AFL/Matches'
+                // },
+                // {
+                //     sport_key:'baseball_mlb',
+                //     sport_title:'MLB',
+                //     url:'https://www.jimmybet.com.au/Sport/Baseball/Major_League_Baseball/Matches'
+                // },
                 {
-                    sport_key:'aussierules_afl',
-                    sport_title:'AFL',
-                    url:'https://www.jimmybet.com.au/Sport/Australian_Rules/AFL/Matches'
-                },
-                {
-                    sport_key:'baseball_mlb',
-                    sport_title:'MLB',
-                    url:'https://www.jimmybet.com.au/Sport/Baseball/Major_League_Baseball/Matches'
+                    sport_key:'american_nfl',
+                    sport_title:'NFL',
+                    url:'https://www.jimmybet.com.au/Sport/Soccer/American_Major_League_Soccer/Matches'
                 }
             ]
 

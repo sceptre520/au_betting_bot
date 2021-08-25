@@ -11,7 +11,10 @@ exports.savedata = (sport_key, sport_title, bk_key, bk_title, teamnames, start_t
             var trigger = 0.4
             if(tmp_setting.trigger) trigger = tmp_setting.trigger
             if(!Array.isArray(teamnames) || teamnames.length != 2) {
-                console.log(teamnames)
+                console.log('------------------------------------')
+                console.log(sport_key+' '+bk_key+' '+teamnames)
+                console.log(JSON.stringify(market_json))
+                console.log('------------------------------------')
                 return
             }
             models.events.findOne({$and:[

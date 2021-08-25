@@ -180,7 +180,6 @@ const getData = async (pmind, pmlen, pmObjs, callback) => {
             len ++
         }
         updater.savedata(pmObj.sport_key, pmObj.sport_title, bookmaker_key, bookmaker_title, pm_data)
-        console.log(pmObj.sport_key+' '+bookmaker_title+' '+len+' event(s) updated')
 
         getData(pmind+1, pmlen, pmObjs, callback)
     }
@@ -212,7 +211,7 @@ function convertTimeFormat(pm_str) {
 
 exports.run = () => {
     getData(0, vgmObjs.length, vgmObjs, function() {
-        console.log('--- Tabtouch finish ---')
+        // console.log('--- Tabtouch finish ---')
     })
     
     // var tmp_len = vgmObjs.length

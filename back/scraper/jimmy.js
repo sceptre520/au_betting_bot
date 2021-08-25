@@ -29,92 +29,100 @@ const vgmObjs= [
                 }
             ]
 
-const getData = async (pmObj) => {
-    const response = await got(pmObj.url);
-    const $ = cheerio.load(response.body);
+const getData = async (pmind, pmlen, pmObjs, callback) => {
+    if(pmind < pmlen) {
+        var pmObj = pmObjs[pmind]
+        const response = await got(pmObj.url)
+        const $ = cheerio.load(response.body)
 
-    var events = $('.framePanel')
-    var len = events.length
-    var pm_data = []
-    for (var x=0; x<len; x++) {
-        var thead = $(events[x]).find('thead')
-        var match_time = $(thead).find('th').children('span').text()
-        var tds = $(thead).find('td')
-        var markets = []
-        var market_len = tds.length
-        var indexes = []
-        var draw_flag = -1
-        for(var y=0; y<market_len; y++) {
-            var market_name = $(tds[y]).text()
-            var tmp_len = markets.length
-            var flag = -1
-            var mk_key = convertMarketName(market_name)
-            for(var z=0; z<tmp_len; z++) {
-                if(markets[z].key == mk_key) {
-                    indexes.push(z)
-                    flag = 1
-                    break
+        var events = $('.framePanel')
+        var len = events.length
+        var pm_data = []
+        for (var x=0; x<len; x++) {
+            var thead = $(events[x]).find('thead')
+            var match_time = $(thead).find('th').children('span').text()
+            var tds = $(thead).find('td')
+            var markets = []
+            var market_len = tds.length
+            var indexes = []
+            var draw_flag = -1
+            for(var y=0; y<market_len; y++) {
+                var market_name = $(tds[y]).text()
+                var tmp_len = markets.length
+                var flag = -1
+                var mk_key = convertMarketName(market_name)
+                for(var z=0; z<tmp_len; z++) {
+                    if(markets[z].key == mk_key) {
+                        indexes.push(z)
+                        flag = 1
+                        break
+                    }
+                }
+                if(flag == -1) {
+                    markets.push({
+                        key: mk_key,
+                        outcomes: []
+                    })
+                    indexes.push(markets.length-1)
+                    if(mk_key == 'draw') {
+                        draw_flag = markets.length-1
+                    }
                 }
             }
-            if(flag == -1) {
-                markets.push({
-                    key: mk_key,
-                    outcomes: []
-                })
-                indexes.push(markets.length-1)
-                if(mk_key == 'draw') {
-                    draw_flag = markets.length-1
-                }
-            }
-        }
-        var tbody = $(events[x]).find('tbody')
-        var outcomes = $(tbody).children('tr')
-        var out_len = outcomes.length
-        var team_names = []
-        var draw_val = 0
-        for(var y=0; y<out_len; y++) {
-            var odds = $(outcomes[y]).children('td')
-            var team_name = $(outcomes[y]).children('th').children('div').last().text()
-            team_names.push(team_name)
-            for(var z=0; z<market_len; z++) {
-                var tmp_str = $(odds[z]).children('a').text()
-                var tmp_arr = tmp_str.split('@')
-                tmp_str = tmp_arr[tmp_arr.length-1]
-                tmp_str = tmp_str.trim()
-                if(draw_flag != -1 && y==0 && z==draw_flag) draw_val = tmp_str
-                if(draw_flag != -1 && y!=0 && z==draw_flag) {
+            var tbody = $(events[x]).find('tbody')
+            var outcomes = $(tbody).children('tr')
+            var out_len = outcomes.length
+            var team_names = []
+            var draw_val = 0
+            for(var y=0; y<out_len; y++) {
+                var odds = $(outcomes[y]).children('td')
+                var team_name = $(outcomes[y]).children('th').children('div').last().text()
+                team_names.push(team_name)
+                for(var z=0; z<market_len; z++) {
+                    var tmp_str = $(odds[z]).children('a').text()
+                    var tmp_arr = tmp_str.split('@')
+                    tmp_str = tmp_arr[tmp_arr.length-1]
+                    tmp_str = tmp_str.trim()
+                    if(draw_flag != -1 && y==0 && z==draw_flag) draw_val = tmp_str
+                    if(draw_flag != -1 && y!=0 && z==draw_flag) {
+                        markets[indexes[z]].outcomes.push({
+                            name: team_name,
+                            price: draw_val
+                        })
+                    }
+                    if(draw_flag != -1 && y!=0 && z>=draw_flag) {
+                        if (z < market_len-1)
+                            markets[indexes[z]+1].outcomes.push({
+                                name: team_name,
+                                price: tmp_str
+                            })
+                        continue
+                    }
                     markets[indexes[z]].outcomes.push({
                         name: team_name,
-                        price: draw_val
+                        price: tmp_str
                     })
                 }
-                if(draw_flag != -1 && y!=0 && z>=draw_flag) {
-                    if (z < market_len-1)
-                        markets[indexes[z]+1].outcomes.push({
-                            name: team_name,
-                            price: tmp_str
-                        })
-                    continue
-                }
-                markets[indexes[z]].outcomes.push({
-                    name: team_name,
-                    price: tmp_str
-                })
             }
+            // updater.savedata(pmObj.sport_key, pmObj.sport_title, bookmaker_key, bookmaker_title, team_names, convertTimeFormat(match_time), markets)
+            pm_data.push({
+                teamnames: team_names,
+                start_time: convertTimeFormat(match_time),
+                market_json: markets,
+            })
+            // console.log(team_names)
+            // console.log(convertTimeFormat(match_time))
+            // console.log(JSON.stringify(markets))
+            // console.log('------------   tbody   ---------------')
         }
-        // updater.savedata(pmObj.sport_key, pmObj.sport_title, bookmaker_key, bookmaker_title, team_names, convertTimeFormat(match_time), markets)
-        pm_data.push({
-            teamnames: team_names,
-            start_time: convertTimeFormat(match_time),
-            market_json: markets,
-        })
-        // console.log(team_names)
-        // console.log(convertTimeFormat(match_time))
-        // console.log(JSON.stringify(markets))
-        // console.log('------------   tbody   ---------------')
+        updater.savedata(pmObj.sport_key, pmObj.sport_title, bookmaker_key, bookmaker_title, pm_data)
+        // console.log(bookmaker_title+' '+len+' event(s) updated')
+        
+        getData(pmind+1, pmlen, pmObjs, callback)
     }
-    updater.savedata(pmObj.sport_key, pmObj.sport_title, bookmaker_key, bookmaker_title, pm_data)
-    // console.log(bookmaker_title+' '+len+' event(s) updated')
+    else {
+        callback()
+    }
 }
 
 function convertTimeFormat(pm_str) {
@@ -152,8 +160,12 @@ function convertMarketName(pm_name) {
 }
 
 exports.run = () => {
-    var tmp_len = vgmObjs.length
-    for(var tmp_i=0; tmp_i<tmp_len; tmp_i++) {
-        getData(vgmObjs[tmp_i])
-    }
+    getData(0, vgmObjs.length, vgmObjs, function() {
+        // console.log('--- Tabtouch finish ---')
+    })
+    
+    // var tmp_len = vgmObjs.length
+    // for(var tmp_i=0; tmp_i<tmp_len; tmp_i++) {
+    //     getData(vgmObjs[tmp_i])
+    // }
 }

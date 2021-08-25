@@ -45,7 +45,9 @@ exports.savedata = (sport_key, sport_title, bk_key, bk_title, teamnames, start_t
                                     outcomes = market_json[tmp_j].outcomes
                                     mk_key = market_json[tmp_j].key
                                     var index_market = -1
+                                    console.log('mk_key ', mk_key)
                                     for(j in data.bookmakers[tmp_i].markets) {
+                                        console.log(data.bookmakers[tmp_i].markets[j].key)
                                         if (data.bookmakers[tmp_i].markets[j].key == mk_key)
                                             index_market = j
                                     }

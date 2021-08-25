@@ -9,7 +9,7 @@ exports.savedata = (sport_key, sport_title, bk_key, bk_title, teamnames, start_t
             var tmp_setting = data[0]
             var trigger = 0.4
             if(tmp_setting.trigger) trigger = tmp_setting.trigger
-            if(teamnames.length != 2) {
+            if(teamnames.length==undefined || teamnames.length != 2) {
                 console.log(teamnames)
                 return
             }

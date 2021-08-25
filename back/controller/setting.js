@@ -3,6 +3,10 @@ const main_obj = require('./../index')
 
 const cron = require('node-cron');
 
+const jimmy = require('./../scraper/jimmy')
+const tabbouch = require('./../scraper/tabtouch')
+const oddapi = require('./...scraper/oddapi')
+
 exports.readSetting = (req, res) => {
     models.setting.find(function(err, data) {
         if(err == null && data.length>0) {

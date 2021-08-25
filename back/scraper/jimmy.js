@@ -32,12 +32,14 @@ const getData = async (pmObj) => {
         var markets = []
         var market_len = tds.length
         var indexes = []
+        var draw_flag = -1
         for(var y=0; y<market_len; y++) {
             var market_name = $(tds[y]).text()
             var tmp_len = markets.length
             var flag = -1
+            var mk_key = convertMarketName(market_name)
             for(var z=0; z<tmp_len; z++) {
-                if(markets[z].key == convertMarketName(market_name)) {
+                if(markets[z].key == mk_key) {
                     indexes.push(z)
                     flag = 1
                     break
@@ -45,16 +47,20 @@ const getData = async (pmObj) => {
             }
             if(flag == -1) {
                 markets.push({
-                    key: convertMarketName(market_name),
+                    key: mk_key,
                     outcomes: []
                 })
                 indexes.push(markets.length-1)
+                if(mk_key == 'draw') {
+                    draw_flag = markets.length-1
+                }
             }
         }
         var tbody = $(events[x]).find('tbody')
         var outcomes = $(tbody).children('tr')
         var out_len = outcomes.length
         var team_names = []
+        var draw_val = 0
         for(var y=0; y<out_len; y++) {
             var odds = $(outcomes[y]).children('td')
             var team_name = $(outcomes[y]).children('th').children('div').last().text()
@@ -64,7 +70,21 @@ const getData = async (pmObj) => {
                 var tmp_arr = tmp_str.split('@')
                 tmp_str = tmp_arr[tmp_arr.length-1]
                 tmp_str = tmp_str.trim()
-                
+                if(draw_flag != -1 && y==0 && z==draw_flag) draw_val = tmp_str
+                if(draw_flag != -1 && y!=0 && z==draw_flag) {
+                    markets[indexes[z]].outcomes.push({
+                        name: team_name,
+                        price: draw_val
+                    })
+                }
+                if(draw_flag != -1 && y!=0 && z>=draw_flag) {
+                    if (z < market_len-1)
+                        markets[indexes[z]+1].outcomes.push({
+                            name: team_name,
+                            price: tmp_str
+                        })
+                    continue
+                }
                 markets[indexes[z]].outcomes.push({
                     name: team_name,
                     price: tmp_str

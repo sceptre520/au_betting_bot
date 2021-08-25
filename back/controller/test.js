@@ -9,19 +9,19 @@ exports.mailtest = (req, res) => {
             var msg = []
             msg.push({
                 bookmaker: 'b1',
-                match: 'h1' + " vs " + 'h2',
+                matchs: 'h1' + " vs " + 'h2',
                 sports: 'mlb',
                 market: 'win',
-                outcome: 'ind',
+                outcome: 'india',
                 from: '1.6',
                 to: '2.1'
             })
             msg.push({
                 bookmaker: 'b2',
-                match: 'h1' + " vs " + 'h2',
+                matchs: 'h1' + " vs " + 'h2',
                 sports: 'mlb',
                 market: 'line',
-                outcome: 'pak',
+                outcome: 'pakistan',
                 from: '1.8',
                 to: '1.5'
             })

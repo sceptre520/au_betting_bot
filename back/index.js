@@ -13,6 +13,7 @@ const router = require("./router")
 
 const jimmy = require('./scraper/jimmy')
 const tabbouch = require('./scraper/tabtouch')
+const oddapi = require('./scraper/oddapi')
 
 mongoDB.once('open', function() {
   console.log('--  MogoDB Connected  --')
@@ -23,6 +24,7 @@ console.log('--  Server Started  --')
 
 cron.schedule('0 */30 * * * *', function() {
   console.log(' ---  running a task every 30 minutes --- ');
+  oddapi()
 })
 
 cron.schedule('*/15 * * * * *', function() {

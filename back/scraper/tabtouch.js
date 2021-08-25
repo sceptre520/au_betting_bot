@@ -166,12 +166,19 @@ const getData = async (pmObj) => {
             })
         }
     }
-    var len = 0
+    // var len = 0
+    var pm_data = []
     for (x in markets) {
-        updater.savedata(pmObj.sport_key, pmObj.sport_title, bookmaker_key, bookmaker_title, markets[x].teams, markets[x].match_time, markets[x].markets)
-        len ++
+        // updater.savedata(pmObj.sport_key, pmObj.sport_title, bookmaker_key, bookmaker_title, markets[x].teams, markets[x].match_time, markets[x].markets)
+        pm_data.push({
+            teamnames: markets[x].teams,
+            start_time: markets[x].match_time,
+            market_json: markets[x].markets,
+        })
+        // len ++
     }
-    console.log(bookmaker_title+' '+len+' event(s) updated')
+    updater.savedata(pmObj.sport_key, pmObj.sport_title, bookmaker_key, bookmaker_title, pm_data)
+    // console.log(bookmaker_title+' '+len+' event(s) updated')
 }
 
 function convertTimeFormat(pm_str) {

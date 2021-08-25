@@ -35,6 +35,7 @@ const getData = async (pmObj) => {
 
     var events = $('.framePanel')
     var len = events.length
+    var pm_data = []
     for (var x=0; x<len; x++) {
         var thead = $(events[x]).find('thead')
         var match_time = $(thead).find('th').children('span').text()
@@ -101,13 +102,19 @@ const getData = async (pmObj) => {
                 })
             }
         }
-        updater.savedata(pmObj.sport_key, pmObj.sport_title, bookmaker_key, bookmaker_title, team_names, convertTimeFormat(match_time), markets)
+        // updater.savedata(pmObj.sport_key, pmObj.sport_title, bookmaker_key, bookmaker_title, team_names, convertTimeFormat(match_time), markets)
+        pm_data.push({
+            teamnames: team_names,
+            start_time: convertTimeFormat(match_time),
+            market_json: markets,
+        })
         // console.log(team_names)
         // console.log(convertTimeFormat(match_time))
         // console.log(JSON.stringify(markets))
         // console.log('------------   tbody   ---------------')
     }
-    console.log(bookmaker_title+' '+len+' event(s) updated')
+    updater.savedata(pmObj.sport_key, pmObj.sport_title, bookmaker_key, bookmaker_title, pm_data)
+    // console.log(bookmaker_title+' '+len+' event(s) updated')
 }
 
 function convertTimeFormat(pm_str) {

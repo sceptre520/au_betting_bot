@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer')
 
-saveLastPrice = function(old_json, new_json) {
+saveLastPrice = function(old_json, new_json, trigger) {
     ret = {msg:[]}
     if(old_json!=null && old_json.bookmakers!=null) {
         for (x in old_json.bookmakers) {
@@ -22,7 +22,7 @@ saveLastPrice = function(old_json, new_json) {
                 for(z in outcomes) {
                     for (k in new_json.bookmakers[index_bookmaker].markets[index_market].outcomes) {
                         if (new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].name == outcomes[z].name) {
-                            if (validityPrice(new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].price, outcomes[z].price))
+                            if (validityPrice(new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].price, outcomes[z].price, trigger))
                                 ret.msg.push({
                                     bookmaker: bookmaker,
                                     match: new_json.home_team + " vs " + new_json.away_team,
@@ -43,8 +43,8 @@ saveLastPrice = function(old_json, new_json) {
     return ret
 }
 
-validityPrice = function (a, b) {
-    if (Math.abs(a - b) > 0.4) return true
+validityPrice = function (a, b, trigger=0.4) {
+    if (Math.abs(a - b) > trigger) return true
     return false
 }
 

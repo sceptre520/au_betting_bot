@@ -106,7 +106,6 @@ const getData = async (pmObj) => {
     var len = 0
     for (x in markets) {
         updater.savedata(pmObj.sport_key, pmObj.sport_title, bookmaker_key, bookmaker_title, markets[x].teams, markets[x].match_time, markets[x].markets)
-        console.log(markets[x].markets)
         len ++
     }
     console.log(bookmaker_title+' '+len+' event(s) updated')

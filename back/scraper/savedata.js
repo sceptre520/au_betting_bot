@@ -2,6 +2,7 @@ const models = require('./../models');
 const dprc = require('./../dataprocess')
 
 var crypto = require('crypto');
+const { isArray } = require('util');
 
 exports.savedata = (sport_key, sport_title, bk_key, bk_title, teamnames, start_time, market_json) => {
     models.setting.find(function(err, data) {
@@ -9,8 +10,10 @@ exports.savedata = (sport_key, sport_title, bk_key, bk_title, teamnames, start_t
             var tmp_setting = data[0]
             var trigger = 0.4
             if(tmp_setting.trigger) trigger = tmp_setting.trigger
-            console.log(teamnames)
-            return
+            if(!Array.isArray(teamnames) || teamnames.length != 2) {
+                console.log(teamnames)
+                return
+            }
             models.events.findOne({$and:[
                 {$or:[
                 {$and:[{home_team:teamnames[0]}, {away_team:teamnames[1]}]},

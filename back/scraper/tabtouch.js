@@ -139,18 +139,17 @@ const getData = async (pmObj) => {
             var match_formated_name = matchname
             var tmp_arr = matchname.split(' - ')
             var teams = []
+            tmp_arr = tmp_arr[0]
+            tmp_arr = tmp_arr.split(' v ')
+            if(tmp_arr.length < 2) {
+                tmp_arr = tmp_arr[0].split(' @ ')
+            }
+            teams = tmp_arr
             if(tmp_arr.length == 2) {
-                tmp_arr = tmp_arr[0].split(' v ')
-                if(tmp_arr.length < 2) {
-                    tmp_arr = tmp_arr[0].split(' @ ')
-                }
-                teams = tmp_arr
-                if(tmp_arr.length == 2) {
-                    match_formated_name = tmp_arr[0] + tmp_arr[1]
-                }
-                else {
-                    match_formated_name = tmp_arr[0]
-                }
+                match_formated_name = tmp_arr[0] + tmp_arr[1]
+            }
+            else {
+                match_formated_name = tmp_arr[0]
             }
             match_formated_name = match_formated_name.split(' ').join('');
             

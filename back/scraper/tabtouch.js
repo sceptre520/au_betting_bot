@@ -105,80 +105,88 @@ const vgmObjs= [
     }
 ]
 
-const getData = async (pmObj) => {
-    markets = {}
-    var mk_len = pmObj.markets.length
-    for(var mk_i=0; mk_i<mk_len; mk_i++) {
-        const response = await got(pmObj.markets[mk_i].url);
-        const $ = cheerio.load(response.body);
+const getData = async (ind, len, pmObjs, callback) => {
+    if(ind < len) {
+        var pmObj = pmObjs[ind]
+        markets = {}
+        var mk_len = pmObj.markets.length
+        for(var mk_i=0; mk_i<mk_len; mk_i++) {
+            const response = await got(pmObj.markets[mk_i].url);
+            const $ = cheerio.load(response.body);
 
-        var mainDiv = $('#propResult')
-        var tbody = $(mainDiv).children('table').children('tbody')
-        var trs = $(tbody).children('tr')
-        var tr_len = trs.length
-        var tpm_i=0;
-        while(tpm_i<tr_len) {
-            var matchname = $(trs[tpm_i]).children('td').children('strong').text()
-            var matchtime = $(trs[tpm_i]).children('td').children('time').text()
-            matchtime = convertTimeFormat(matchtime)
-            tpm_i ++;
-            var teams = []
-            var odds = []
-            var outcomes = []
-            while(tpm_i<tr_len && $(trs[tpm_i]).children('td').attr('colspan') == undefined) {
-                var team_name = $(trs[tpm_i]).children('td').first().next().text()
-                var odd_val = $(trs[tpm_i]).children('td').last().children('a').children('span').text()
-                teams.push(team_name)
-                odds.push(odd_val)
-                tpm_i ++
-                outcomes.push({
-                    name: team_name,
-                    price: odd_val
+            var mainDiv = $('#propResult')
+            var tbody = $(mainDiv).children('table').children('tbody')
+            var trs = $(tbody).children('tr')
+            var tr_len = trs.length
+            var tpm_i=0;
+            while(tpm_i<tr_len) {
+                var matchname = $(trs[tpm_i]).children('td').children('strong').text()
+                var matchtime = $(trs[tpm_i]).children('td').children('time').text()
+                matchtime = convertTimeFormat(matchtime)
+                tpm_i ++;
+                var teams = []
+                var odds = []
+                var outcomes = []
+                while(tpm_i<tr_len && $(trs[tpm_i]).children('td').attr('colspan') == undefined) {
+                    var team_name = $(trs[tpm_i]).children('td').first().next().text()
+                    var odd_val = $(trs[tpm_i]).children('td').last().children('a').children('span').text()
+                    teams.push(team_name)
+                    odds.push(odd_val)
+                    tpm_i ++
+                    outcomes.push({
+                        name: team_name,
+                        price: odd_val
+                    })
+                }
+                var match_formated_name = matchname
+                var tmp_arr = matchname.split(' - ')
+                var teams = []
+                tmp_arr = tmp_arr[0]
+                tmp_arr = tmp_arr.split(' v ')
+                if(tmp_arr.length < 2) {
+                    tmp_arr = tmp_arr[0].split(' @ ')
+                }
+                teams = tmp_arr
+                if(tmp_arr.length == 2) {
+                    match_formated_name = tmp_arr[0] + tmp_arr[1]
+                }
+                else {
+                    match_formated_name = tmp_arr[0]
+                }
+                match_formated_name = match_formated_name.split(' ').join('');
+                
+                if (markets[match_formated_name] == null) {
+                    markets[match_formated_name] = {
+                        teams:teams,
+                        match_time:matchtime,
+                        markets:[]
+                    }
+                }
+                markets[match_formated_name].markets.push({
+                    key: pmObj.markets[mk_i].key,
+                    outcomes: outcomes
                 })
             }
-            var match_formated_name = matchname
-            var tmp_arr = matchname.split(' - ')
-            var teams = []
-            tmp_arr = tmp_arr[0]
-            tmp_arr = tmp_arr.split(' v ')
-            if(tmp_arr.length < 2) {
-                tmp_arr = tmp_arr[0].split(' @ ')
-            }
-            teams = tmp_arr
-            if(tmp_arr.length == 2) {
-                match_formated_name = tmp_arr[0] + tmp_arr[1]
-            }
-            else {
-                match_formated_name = tmp_arr[0]
-            }
-            match_formated_name = match_formated_name.split(' ').join('');
-            
-            if (markets[match_formated_name] == null) {
-                markets[match_formated_name] = {
-                    teams:teams,
-                    match_time:matchtime,
-                    markets:[]
-                }
-            }
-            markets[match_formated_name].markets.push({
-                key: pmObj.markets[mk_i].key,
-                outcomes: outcomes
-            })
         }
+        var len = 0
+        var pm_data = []
+        for (x in markets) {
+            // updater.savedata(pmObj.sport_key, pmObj.sport_title, bookmaker_key, bookmaker_title, markets[x].teams, markets[x].match_time, markets[x].markets)
+            pm_data.push({
+                teamnames: markets[x].teams,
+                start_time: markets[x].match_time,
+                market_json: markets[x].markets,
+            })
+            len ++
+        }
+        updater.savedata(pmObj.sport_key, pmObj.sport_title, bookmaker_key, bookmaker_title, pm_data)
+        console.log(pmObj.sport_key+' '+bookmaker_title+' '+len+' event(s) updated')
+
+        getData(ind+1, len, pmObjs, callback)
     }
-    var len = 0
-    var pm_data = []
-    for (x in markets) {
-        // updater.savedata(pmObj.sport_key, pmObj.sport_title, bookmaker_key, bookmaker_title, markets[x].teams, markets[x].match_time, markets[x].markets)
-        pm_data.push({
-            teamnames: markets[x].teams,
-            start_time: markets[x].match_time,
-            market_json: markets[x].markets,
-        })
-        len ++
+    else {
+        callback()
     }
-    updater.savedata(pmObj.sport_key, pmObj.sport_title, bookmaker_key, bookmaker_title, pm_data)
-    console.log(pmObj.sport_key+' '+bookmaker_title+' '+len+' event(s) updated')
 }
 
 function convertTimeFormat(pm_str) {
@@ -203,10 +211,14 @@ function convertTimeFormat(pm_str) {
 }
 
 exports.run = () => {
-    var tmp_len = vgmObjs.length
-    for(var tmp_i=0; tmp_i<tmp_len; tmp_i++) {
-        setTimeout( function (tmp_i) {
-            getData(vgmObjs[tmp_i])
-        }, 2000*tmp_i, tmp_i)
-    }
+    getData(0, vgmObjs.length, vgmObjs, function() {
+        console.log('--- Tabtouch finish ---')
+    })
+    
+    // var tmp_len = vgmObjs.length
+    // for(var tmp_i=0; tmp_i<tmp_len; tmp_i++) {
+    //     setTimeout( function (tmp_i) {
+    //         getData(vgmObjs[tmp_i])
+    //     }, 2000*tmp_i, tmp_i)
+    // }
 }

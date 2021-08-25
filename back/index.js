@@ -24,6 +24,11 @@ mongoDB.once('open', function() {
       var prd1 = 1800
       if(data[0].prd1) prd1 = data[0].prd1
       var cron1_str = "*/"+prd1+" * * * * *"
+      if(prd1>120) {
+        prd1 = prd1/60
+        prd1 = Math.round(prd1)
+        cron1_str = "0 */"+prd1+" * * * *"
+      }
       exports.task1 = cron.schedule(cron1_str, function() {
           console.log(cron1_str)
           oddapi()

@@ -207,6 +207,6 @@ exports.run = () => {
     for(var tmp_i=0; tmp_i<tmp_len; tmp_i++) {
         setTimeout( function (tmp_i) {
             getData(vgmObjs[tmp_i])
-        }, 100*tmp_i, tmp_i)
+        }, 1000*tmp_i, tmp_i)
     }
 }

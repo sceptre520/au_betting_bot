@@ -38,6 +38,70 @@ const vgmObjs= [
                 url:'https://www.tabtouch.com.au/sports/baseball/mlb/30933/1042721?tourname=Matches&tourseq=2806702&groupid=10000&groupname=Total-Runs'
             }
         ]
+    },
+    {
+        sport_key:'rugbyleague_nrl',
+        sport_title:'Aussie Rugby League',
+        markets:[
+            {
+                key:'h2h',
+                url:'https://www.tabtouch.com.au/sports/rugby-league/nrl/30923/1042714?tourname=Matches&tourseq=2800500&groupid=100&groupcode=--&groupname=Head-to-Head'
+            },
+            {
+                key:'spreads',
+                url:'https://www.tabtouch.com.au/sports/rugby-league/nrl/30923/1042714?tourname=Matches&tourseq=2800500&groupid=145&groupcode=--&groupname=Line'
+            }
+        ]
+    },
+    {
+        sport_key:'basketball_nba',
+        sport_title:'NBA',
+        markets:[
+            {
+                key:'h2h',
+                url:'https://www.tabtouch.com.au/sports/basketball/nba/30947/1042796?tourname=Matches&tourseq=2806072&groupid=100&groupcode=--&groupname=Head-to-Head'
+            },
+            {
+                key:'spreads',
+                url:'https://www.tabtouch.com.au/sports/basketball/nba/30947/1042796?tourname=Matches&tourseq=2806072&groupid=145&groupcode=--&groupname=Line'
+            },
+            {
+                key:'totals',
+                url:'https://www.tabtouch.com.au/sports/basketball/nba/30947/1042796?tourname=Matches&tourseq=2806072&groupid=240&groupcode=--&groupname=Game-Total'
+            }
+        ]
+    },
+    {
+        sport_key:'americanfootball_nfl',
+        sport_title:'US Football',
+        markets:[
+            {
+                key:'h2h',
+                url:'https://www.tabtouch.com.au/sports/american-football/nfl/30944/1042743?tourname=Matches&tourseq=2807197&groupid=100&groupcode=--&groupname=Head-to-Head'
+            },
+            {
+                key:'spreads',
+                url:'https://www.tabtouch.com.au/sports/american-football/nfl/30944/1042743?tourname=Matches&tourseq=2807197&groupid=145&groupcode=--&groupname=Line'
+            },
+            {
+                key:'totals',
+                url:'https://www.tabtouch.com.au/sports/american-football/nfl/30944/1042743?tourname=Matches&tourseq=2807197&groupid=240&groupcode=--&groupname=Game-Total'
+            }
+        ]
+    },
+    {
+        sport_key:'rugbyunion_rul',
+        sport_title:'Club Pro D2',
+        markets:[
+            {
+                key:'h2h',
+                url:'https://www.tabtouch.com.au/sports/rugby-union/club/30931/3169919?tourname=French-Pro-D2&tourseq=2806579&groupid=100&groupcode=--&groupname=Head-to-Head'
+            },
+            {
+                key:'spreads',
+                url:'https://www.tabtouch.com.au/sports/rugby-union/club/30931/3169919?tourname=French-Pro-D2&tourseq=2806579&groupid=145&groupcode=--&groupname=Line'
+            }
+        ]
     }
 ]
 

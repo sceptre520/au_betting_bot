@@ -49,9 +49,6 @@ exports.savedata = (sport_key, sport_title, bk_key, bk_title, teamnames, start_t
                                         if (data.bookmakers[tmp_i].markets[j].key == mk_key)
                                             index_market = j
                                     }
-                                    if(bk_key == 'tabtouch') {
-                                        console.log('mk_key ', mk_key, ' - ', index_market)
-                                    }
                                     if (index_market == -1) {
                                         data.bookmakers[tmp_i].markets.push(market_json[tmp_j])
                                         continue

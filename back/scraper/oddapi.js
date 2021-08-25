@@ -42,7 +42,7 @@ module.exports = function() {
                             used_req: response.headers['x-requests-used']
                         }
                         models.apilog.updateMany({}, tmp_log, {upsert: true}, function (err) {
-                            console.log(err)
+                            if(err != null) console.log(err)
                         })
                     })
                     .catch(error => {

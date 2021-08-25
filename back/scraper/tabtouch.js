@@ -105,10 +105,9 @@ const vgmObjs= [
     }
 ]
 
-const getData = async (ind, len, pmObjs, callback) => {
-    if(ind < len) {
-        console.log(ind, len)
-        var pmObj = pmObjs[ind]
+const getData = async (pmind, pmlen, pmObjs, callback) => {
+    if(pmind < pmlen) {
+        var pmObj = pmObjs[pmind]
         markets = {}
         var mk_len = pmObj.markets.length
         for(var mk_i=0; mk_i<mk_len; mk_i++) {
@@ -183,7 +182,7 @@ const getData = async (ind, len, pmObjs, callback) => {
         updater.savedata(pmObj.sport_key, pmObj.sport_title, bookmaker_key, bookmaker_title, pm_data)
         console.log(pmObj.sport_key+' '+bookmaker_title+' '+len+' event(s) updated')
 
-        getData(ind+1, len, pmObjs, callback)
+        getData(pmind+1, pmlen, pmObjs, callback)
     }
     else {
         callback()

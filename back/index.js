@@ -25,8 +25,8 @@ cron.schedule('0 */30 * * * *', function() {
   console.log(' ---  running a task every 30 minutes --- ');
 })
 
-cron.schedule('*/30 * * * * *', function() {
-  console.log('--  running a task every 30 seconds --');
+cron.schedule('*/15 * * * * *', function() {
+  console.log('--  running a task every 15 seconds --');
   jimmy.run()
   tabbouch.run()
 })

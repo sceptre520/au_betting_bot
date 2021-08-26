@@ -1,5 +1,6 @@
 const models = require('./../models');
 const dprc = require('./../dataprocess')
+const validityPrice = dprc.validityPrice
 
 var crypto = require('crypto');
 const { isArray } = require('util');
@@ -17,11 +18,11 @@ exports.savedata = (sport_key, sport_title, bk_key, bk_title, pm_data) => {
     })
 }
 
-validityPrice = function (a, b, trigger=0.4) {
-    // console.log(trigger)
-    if (Math.abs(a - b) > trigger) return true
-    return false
-}
+// validityPrice = function (a, b, trigger=0.4) {
+//     // console.log(trigger)
+//     if (Math.abs(a - b) > trigger) return true
+//     return false
+// }
 
 function updateOneData(sport_key, sport_title, bk_key, bk_title, ind, len, pm_data, trigger, callback) {
     if(ind < len) {
@@ -90,7 +91,7 @@ function updateOneData(sport_key, sport_title, bk_key, bk_title, ind, len, pm_da
                                         if (data.bookmakers[tmp_i].markets[index_market].outcomes[x].name == outcomes[tmp_k].name) {
                                             data.bookmakers[tmp_i].markets[index_market].outcomes[x].last_price = data.bookmakers[tmp_i].markets[index_market].outcomes[x].price
                                             data.bookmakers[tmp_i].markets[index_market].outcomes[x].price = outcomes[tmp_k].price
-                                            if (validityPrice(data.bookmakers[tmp_i].markets[index_market].outcomes[x].last_price, outcomes[tmp_k].price, trigger)) {
+                                            if (validityPrice(data.bookmakers[tmp_i].markets[index_market].outcomes[x].last_price, outcomes[tmp_k].price, trigger, data.bookmakers[tmp_i].key, data.commence_time)) {
                                                 ret_msg.push({
                                                     bookmaker: bk_key,
                                                     match: teamnames[0] + " vs " + teamnames[1],

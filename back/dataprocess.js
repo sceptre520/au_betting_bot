@@ -22,7 +22,7 @@ saveLastPrice = function(old_json, new_json, trigger) {
                 for(z in outcomes) {
                     for (k in new_json.bookmakers[index_bookmaker].markets[index_market].outcomes) {
                         if (new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].name == outcomes[z].name) {
-                            if (validityPrice(new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].price, outcomes[z].price, trigger))
+                            if (validityPrice(new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].price, outcomes[z].price, trigger, new_json.bookmakers[index_bookmaker].key, new_json.commence_time))
                                 ret.msg.push({
                                     bookmaker: bookmaker,
                                     match: new_json.home_team + " vs " + new_json.away_team,
@@ -43,7 +43,8 @@ saveLastPrice = function(old_json, new_json, trigger) {
     return ret
 }
 
-validityPrice = function (a, b, trigger=0.4) {
+validityPrice = function (a, b, trigger=0.4, bk_mk_key='', time_str=null) {
+    console.log(bk_mk_key, time_str)
     if (Math.abs(a - b) > trigger) return true
     return false
 }

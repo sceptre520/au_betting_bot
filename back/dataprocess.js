@@ -44,8 +44,21 @@ saveLastPrice = function(old_json, new_json, trigger) {
 }
 
 validityPrice = function (a, b, trigger=0.4, bk_mk_key='', time_str=null) {
-    console.log(bk_mk_key, time_str)
-    if (Math.abs(a - b) > trigger) return true
+    var match_time = new Date(time_str)
+    var nw = new Date()
+    switch(bk_mk_key) {
+        case 'jimmybet':
+            match_time.setHours(match_time.getHours() - 10)
+            break
+        case 'tabtouch':
+            match_time.setHours(match_time.getHours() - 8)
+            break
+    }
+
+    if (time_str!=null && match_time<nw && Math.abs(a - b) > trigger) {
+        console.log('Match time filter debug', bk_mk_key, time_str)
+        return true
+    }
     return false
 }
 

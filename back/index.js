@@ -31,7 +31,7 @@ mongoDB.once('open', function() {
       }
       exports.task1 = cron.schedule(cron1_str, function() {
           console.log(cron1_str)
-          oddapi()
+          // oddapi()
       })
 
       var prd2 = 15
@@ -39,8 +39,8 @@ mongoDB.once('open', function() {
       var cron2_str = "*/"+prd2+" * * * * *"
       exports.task2 = cron.schedule(cron2_str, function() {
           console.log(cron2_str)
-          jimmy.run()
-          tabbouch.run()
+          // jimmy.run()
+          // tabbouch.run()
       })
 
     }

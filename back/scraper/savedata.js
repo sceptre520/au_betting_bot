@@ -94,7 +94,7 @@ function updateOneData(sport_key, sport_title, bk_key, bk_title, ind, len, pm_da
                                             if (validityPrice(data.bookmakers[tmp_i].markets[index_market].outcomes[x].last_price, outcomes[tmp_k].price, trigger, data.bookmakers[tmp_i].key, data.commence_time)) {
                                                 ret_msg.push({
                                                     bookmaker: bk_key,
-                                                    match: teamnames[0] + " vs " + teamnames[1],
+                                                    matchs: teamnames[0] + " vs " + teamnames[1],
                                                     sports: sport_key,
                                                     market: market_json[tmp_j].key,
                                                     outcome: outcomes[tmp_k].name,

@@ -55,7 +55,7 @@ validityPrice = function (a, b, trigger=0.4, bk_mk_key='', time_str=null) {
             break
     }
 
-    if (time_str!=null && match_time<nw && Math.abs(a - b) > trigger) {
+    if (time_str!=null && match_time>nw && Math.abs(a - b) > trigger) {
         console.log('Match time filter debug', bk_mk_key, time_str)
         return true
     }

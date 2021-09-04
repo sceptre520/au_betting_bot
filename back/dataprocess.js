@@ -25,7 +25,7 @@ saveLastPrice = function(old_json, new_json, trigger) {
                             if (validityPrice(new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].price, outcomes[z].price, trigger, new_json.bookmakers[index_bookmaker].key, new_json.commence_time))
                                 if (bookmaker=='tab' || bookmaker=='ladbrokes' || bookmaker=='sportsbet' || bookmaker=='pointsbetau' || bookmaker=='unibet')
                                 var point = ''
-                                if(outcomes[z].point) point = new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].point
+                                if(new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].point) point = new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].point
                                 ret.msg.push({
                                     bookmaker: bookmaker,
                                     matchs: new_json.home_team + " vs " + new_json.away_team,

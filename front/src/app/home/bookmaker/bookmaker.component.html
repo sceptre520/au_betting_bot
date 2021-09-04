@@ -1,7 +1,7 @@
 <div style="clear: both;" *ngIf="parentData.key=='tab'||parentData.key=='ladbrokes'||parentData.key=='sportsbet'||parentData.key=='pointsbetau'||parentData.key=='unibet'||parentData.key=='jimmybet'||parentData.key=='tabtouch'">
     <div class="bookmaker_title">{{ parentData.title }}</div>
     <div *ngFor="let row of parentData.markets" class="market_data">
-        <div *ngIf="row.key!='h2h_lay'">
+        <div *ngIf="row.key!='h2h_lay' && row.key!='draw'">
             <div class="market_title" >{{ row.market_title }}</div>
             <div *ngFor="let outcome of row.outcomes" class="market_meta">
                 <div class="team_name"> {{ outcome.name }} {{outcome.point}} </div>

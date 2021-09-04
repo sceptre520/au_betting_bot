@@ -18,6 +18,10 @@ const vgmObjs= [
             {
                 key:'spreads',
                 url:'https://www.tabtouch.com.au/sports/australian-rules/afl/30929/1042715?tourname=Matches&tourseq=2800490&groupid=145&groupcode=--&groupname=Line'
+            },
+            {
+                key:'spreads',
+                url:'https://www.tabtouch.com.au/sports/australian-rules/afl/30929/1042715?tourname=Matches&tourseq=2800490&groupid=10000&groupname=Total-Score-Over-Under'
             }
         ]
     },
@@ -50,6 +54,10 @@ const vgmObjs= [
             {
                 key:'spreads',
                 url:'https://www.tabtouch.com.au/sports/rugby-league/nrl/30923/1042714?tourname=Matches&tourseq=2800500&groupid=145&groupcode=--&groupname=Line'
+            },
+            {
+                key:'totals',
+                url:'https://www.tabtouch.com.au/sports/rugby-league/nrl/30923/1042714?tourname=Matches&tourseq=2800500&groupid=10000&groupname=Total-Match-Points'
             }
         ]
     },

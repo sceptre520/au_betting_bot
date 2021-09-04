@@ -80,13 +80,19 @@ const getData = async (pmind, pmlen, pmObjs, callback) => {
                 team_names.push(team_name)
                 for(var z=0; z<market_len; z++) {
                     var tmp_str = $(odds[z]).children('a').text()
+                    var tmp_point = ''
                     var tmp_arr = tmp_str.split('@')
+                    if (tmp_arr.length > 1) {
+                        tmp_point = tmp_arr[0]
+                        tmp_point = tmp_point.trim()
+                    }
                     tmp_str = tmp_arr[tmp_arr.length-1]
                     tmp_str = tmp_str.trim()
                     if(draw_flag != -1 && y==0 && z==draw_flag) draw_val = tmp_str
                     if(draw_flag != -1 && y!=0 && z==draw_flag) {
                         markets[indexes[z]].outcomes.push({
                             name: team_name,
+                            point: '',
                             price: draw_val
                         })
                     }
@@ -94,12 +100,14 @@ const getData = async (pmind, pmlen, pmObjs, callback) => {
                         if (z < market_len-1)
                             markets[indexes[z]+1].outcomes.push({
                                 name: team_name,
+                                point: tmp_point,
                                 price: tmp_str
                             })
                         continue
                     }
                     markets[indexes[z]].outcomes.push({
                         name: team_name,
+                        point: tmp_point,
                         price: tmp_str
                     })
                 }

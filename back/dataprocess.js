@@ -24,12 +24,15 @@ saveLastPrice = function(old_json, new_json, trigger) {
                         if (new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].name == outcomes[z].name) {
                             if (validityPrice(new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].price, outcomes[z].price, trigger, new_json.bookmakers[index_bookmaker].key, new_json.commence_time))
                                 if (bookmaker=='tab' || bookmaker=='ladbrokes' || bookmaker=='sportsbet' || bookmaker=='pointsbetau' || bookmaker=='unibet')
+                                var point = ''
+                                if(outcomes[z].point) point = new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].point
                                 ret.msg.push({
                                     bookmaker: bookmaker,
                                     matchs: new_json.home_team + " vs " + new_json.away_team,
                                     sports: new_json.sport_key,
                                     market: markets[y].key,
                                     outcome: outcomes[z].name,
+                                    point: point,
                                     from: outcomes[z].price,
                                     to: new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].price
                                 })
@@ -88,6 +91,7 @@ sendGmail = function(mail, pass, data) {
         sports = sports.replace(/_/g, ' ')
         var market = data[x].market
         var outcome = data[x].outcome
+        if(data[x].point && data[x].point != '') outcome = outcome + ' ' + data[x].point
         var from = data[x].from
         var to = data[x].to
         var tmp = `${bookmaker} ${sports} ${match}\n${market} ${outcome}'s price was change from ${from} to ${to}.\n`

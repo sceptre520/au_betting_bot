@@ -17,6 +17,7 @@ const EvtSchema = new mongoose.Schema(
                 outcomes: [{
                     name: { type: String, required: true },
                     price: { type: Number, required: true },
+                    point: { type: String },
                     last_price: { type: Number },
                 }]
             }]

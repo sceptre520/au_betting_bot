@@ -22,20 +22,22 @@ saveLastPrice = function(old_json, new_json, trigger) {
                 for(z in outcomes) {
                     for (k in new_json.bookmakers[index_bookmaker].markets[index_market].outcomes) {
                         if (new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].name == outcomes[z].name) {
-                            if (validityPrice(new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].price, outcomes[z].price, trigger, new_json.bookmakers[index_bookmaker].key, new_json.commence_time))
-                                if (bookmaker=='tab' || bookmaker=='ladbrokes' || bookmaker=='sportsbet' || bookmaker=='pointsbetau' || bookmaker=='unibet')
-                                var point = ''
-                                if(new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].point) point = new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].point
-                                ret.msg.push({
-                                    bookmaker: bookmaker,
-                                    matchs: new_json.home_team + " vs " + new_json.away_team,
-                                    sports: new_json.sport_key,
-                                    market: markets[y].key,
-                                    outcome: outcomes[z].name,
-                                    point: point,
-                                    from: outcomes[z].price,
-                                    to: new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].price
-                                })
+                            if (validityPrice(new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].price, outcomes[z].price, trigger, new_json.bookmakers[index_bookmaker].key, new_json.commence_time)) {
+                                if (bookmaker=='tab' || bookmaker=='ladbrokes' || bookmaker=='sportsbet' || bookmaker=='pointsbetau' || bookmaker=='unibet') {
+                                    var point = ''
+                                    if(new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].point) point = new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].point
+                                    ret.msg.push({
+                                        bookmaker: bookmaker,
+                                        matchs: new_json.home_team + " vs " + new_json.away_team,
+                                        sports: new_json.sport_key,
+                                        market: markets[y].key,
+                                        outcome: outcomes[z].name,
+                                        point: point,
+                                        from: outcomes[z].price,
+                                        to: new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].price
+                                    })
+                                }
+                            }
                             new_json.bookmakers[index_bookmaker].markets[index_market].outcomes[k].last_price = outcomes[z].price
                         }
                     }
